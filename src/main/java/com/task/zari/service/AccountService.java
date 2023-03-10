@@ -1,5 +1,7 @@
 package com.task.zari.service;
 
+import com.task.zari.config.auth.PrincipalDetails;
+import com.task.zari.dto.AuthDto;
 import com.task.zari.dto.request.account.AccountSaveRequestDto;
 import com.task.zari.dto.request.account.LoginRequestDto;
 import com.task.zari.dto.response.ResponseDto;
@@ -26,20 +28,23 @@ public class AccountService {
 
     private final AuthenticationManager authenticationManager;
 
-    public ResponseDto accountSave(AccountSaveRequestDto dto) {
+    public ResponseDto accountSave(AccountSaveRequestDto dto) { //계정등록
         dto.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
         Account account = new Account(dto);
         accountRepository.save(account);
         return new ResponseDto(ResponseResult.SUCCESS);
     }
 
-    public SingleResponseDto<LoginResponseDto> login(LoginRequestDto dto) {
+    public SingleResponseDto<LoginResponseDto> login(LoginRequestDto dto) { //로그인
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(dto.getAccount_id(), dto.getPassword());
 
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return null;
+        LoginResponseDto response =
+                new LoginResponseDto(((PrincipalDetails) authentication.getPrincipal()).getAuthDto());
+
+        return new SingleResponseDto<>(ResponseResult.SUCCESS, response);
     }
 }
