@@ -34,13 +34,13 @@ public abstract class Board extends BaseTimeEntity { //게시판
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Heart> hearts = new ArrayList<>(); //좋아요
 
-    public Board(String title, String content, Account account) {
+    protected Board(String title, String content, Account account) {
         this.title = title;
         this.content = content;
         this.account = account;
     }
 
-    public void updateBoard(String title, String content) { //게시판 수정
+    protected void updateBoard(String title, String content) { //게시판 수정
         if(StringUtils.hasText(title)) this.title = title;
         if(StringUtils.hasText(content)) this.content = content;
     }

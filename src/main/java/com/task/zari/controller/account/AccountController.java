@@ -8,14 +8,13 @@ import com.task.zari.dto.response.account.LoginResponseDto;
 import com.task.zari.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
+@PreAuthorize("hasAnyRole('LESSOR', 'REALTOR', 'LESSEE', 'USER')")
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class AccountController {
@@ -32,6 +31,10 @@ public class AccountController {
         return ResponseEntity.ok(accountService.login(dto));
     }
 
+    @DeleteMapping("/v1/account")
+    public ResponseEntity<ResponseDto> accountDelete(@RequestHeader("password") String password) throws Exception{
+        return ResponseEntity.ok(accountService.accountDelete(password));
+    }
 
 
 }

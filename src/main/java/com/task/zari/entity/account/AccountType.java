@@ -7,9 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum AccountType { //계정타입 Value
 
-    LESSOR("임대인"),
-    REALTOR("공인 중계사"),
-    LESSEE("임차인");
+    Lessor("임대인"),
+    Realtor("공인 중계사"),
+    Lessee("임차인");
 
     private String name;
 }

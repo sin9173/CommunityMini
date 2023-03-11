@@ -1,7 +1,8 @@
-package com.task.zari.config.auth;
+package com.task.zari.auth;
 
 import com.task.zari.dto.AuthDto;
 import com.task.zari.entity.account.Account;
+import com.task.zari.entity.account.AccountType;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,10 +19,14 @@ public class PrincipalDetails implements UserDetails {
         this.authDto = new AuthDto(account);
     }
 
+    public PrincipalDetails(String username, AccountType accountType) {
+        this.authDto = new AuthDto(username, accountType);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(() -> authDto.getAccountType().toString());
+        authorities.add(() -> authDto.getAccountType().toString().toUpperCase());
         return authorities;
     }
 

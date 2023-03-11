@@ -1,5 +1,6 @@
-package com.task.zari.config.auth;
+package com.task.zari.auth;
 
+import com.task.zari.entity.Quit;
 import com.task.zari.repository.account.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +16,8 @@ public class PrincipalDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        System.out.println("로그인 시도 : " + username);
         return accountRepository.findByAccountId(username)
+                .filter(user -> user.getQuit()== Quit.ACTIVE)
                 .map(user -> new PrincipalDetails(user))
                 .orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 계정입니다."));
     }

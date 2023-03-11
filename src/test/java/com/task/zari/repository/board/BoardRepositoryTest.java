@@ -29,7 +29,7 @@ class BoardRepositoryTest {
     @Transactional
     public void boardSaveTest() {
         Account account = new Account("aaa123", passwordEncoder.encode("password"),
-                "nickname", AccountType.LESSEE);
+                "nickname", AccountType.Lessee);
 
         accountRepository.save(account);
 

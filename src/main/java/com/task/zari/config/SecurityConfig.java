@@ -3,6 +3,7 @@ package com.task.zari.config;
 import com.task.zari.advice.filter.AuthAccessDeniedHandler;
 import com.task.zari.advice.filter.AuthEntryPoint;
 import com.task.zari.advice.filter.AuthExceptionHandler;
+import com.task.zari.auth.AuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +34,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .addFilterBefore(new AuthExceptionHandler(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new AuthFilter(), UsernamePasswordAuthenticationFilter.class)
 
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler)
@@ -46,7 +48,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/*/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/*/account").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/*/board").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/*/board/**").permitAll()
                 .anyRequest().authenticated();
 
         return http.build();

@@ -1,7 +1,6 @@
 package com.task.zari.service;
 
-import com.task.zari.config.auth.PrincipalDetails;
-import com.task.zari.dto.AuthDto;
+import com.task.zari.auth.PrincipalDetails;
 import com.task.zari.dto.request.account.AccountSaveRequestDto;
 import com.task.zari.dto.request.account.LoginRequestDto;
 import com.task.zari.dto.response.ResponseDto;
@@ -9,14 +8,21 @@ import com.task.zari.dto.response.ResponseResult;
 import com.task.zari.dto.response.SingleResponseDto;
 import com.task.zari.dto.response.account.LoginResponseDto;
 import com.task.zari.entity.account.Account;
+import com.task.zari.exception.NoAccountException;
+import com.task.zari.exception.NoDataException;
 import com.task.zari.repository.account.AccountRepository;
+import com.task.zari.util.HttpUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,4 +53,16 @@ public class AccountService {
 
         return new SingleResponseDto<>(ResponseResult.SUCCESS, response);
     }
+
+    @Transactional
+    public ResponseDto accountDelete(String password) throws Exception { //비밀번호 변경
+        Account account = accountRepository.findByAccountId(HttpUtils.getUserId())
+                .orElseThrow(() -> new NoAccountException("No Account"));
+        if(!bCryptPasswordEncoder.matches(password, account.getPassword()))
+            throw new BadCredentialsException("Invalid Password");
+        account.delete();
+        return new ResponseDto(ResponseResult.SUCCESS);
+    }
+
+
 }

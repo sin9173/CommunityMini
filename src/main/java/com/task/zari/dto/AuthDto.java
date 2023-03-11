@@ -27,4 +27,11 @@ public class AuthDto {
         this.nickname = account.getNickname();
         this.accountType = account.getAccountType();
     }
+
+    public AuthDto(String username, AccountType accountType) {
+        this.username = username;
+        this.password = "";
+        this.nickname = "";
+        this.accountType = accountType;
+    }
 }
