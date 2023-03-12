@@ -22,22 +22,22 @@ public class AccountExceptionAdvice {
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public ResponseEntity<ResponseDto> duplicate(Exception e) { // DB에 중복된 데이터가 입력되었을 경우
-        return HttpUtils.getResponseEntity(HttpStatus.CONFLICT, ResponseResult.ACCOUNT_DUPLICATE);
+        return HttpUtils.getResponseEntity(HttpStatus.CONFLICT, ResponseResult.ACCOUNT_DUPLICATE, e);
     }
 
     @ExceptionHandler(UnexpectedTypeException.class)
     public ResponseEntity<ResponseDto> notValid(Exception e) { // 요청 파라미터가 없거나 유효하지 않은 경우
-        return HttpUtils.getResponseEntity(HttpStatus.BAD_REQUEST, ResponseResult.NOT_VALID);
+        return HttpUtils.getResponseEntity(HttpStatus.BAD_REQUEST, ResponseResult.NOT_VALID, e);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ResponseDto> notValidParse(Exception e) { //Json 을 객체로 파싱할 때에 문제가 발생하는 경우
-        return HttpUtils.getResponseEntity(HttpStatus.BAD_REQUEST, ResponseResult.NOT_VALID);
+        return HttpUtils.getResponseEntity(HttpStatus.BAD_REQUEST, ResponseResult.NOT_VALID, e);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ResponseDto> badCredential(Exception e) { //인증정보가 잘못되었을 경우
-        return HttpUtils.getResponseEntity(HttpStatus.UNAUTHORIZED, ResponseResult.BAD_CREDENTIAL);
+        return HttpUtils.getResponseEntity(HttpStatus.UNAUTHORIZED, ResponseResult.BAD_CREDENTIAL, e);
     }
 
 }

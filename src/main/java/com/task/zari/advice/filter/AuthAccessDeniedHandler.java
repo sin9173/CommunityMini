@@ -16,6 +16,6 @@ public class AuthAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        HttpUtils.jsonErrorResponse(HttpServletResponse.SC_FORBIDDEN, ResponseResult.BAD_CREDENTIAL, response);
+        HttpUtils.jsonErrorResponse(HttpServletResponse.SC_FORBIDDEN, ResponseResult.BAD_CREDENTIAL, response, accessDeniedException);
     }
 }

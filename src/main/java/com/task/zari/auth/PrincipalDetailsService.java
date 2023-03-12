@@ -14,6 +14,8 @@ public class PrincipalDetailsService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
 
+    
+    //로그인 처리
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return accountRepository.findByAccountId(username)

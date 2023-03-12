@@ -1,5 +1,6 @@
 package com.task.zari.controller.board.community;
 
+import com.task.zari.dto.request.board.community.CommunityListRequestDto;
 import com.task.zari.dto.request.board.community.CommunityModifyRequestDto;
 import com.task.zari.dto.request.board.community.CommunitySaveRequestDto;
 import com.task.zari.dto.response.ResponseDto;
@@ -37,12 +38,9 @@ public class CommunityController {
     }
 
     @GetMapping("/v1/board/community")
-    public ResponseEntity<SingleResponseDto<Page<CommunityResponseDto>>> communityList() {
-        return ResponseEntity.ok().body(communityService.communityList());
+    public ResponseEntity<SingleResponseDto<Page<CommunityResponseDto>>> communityList(@ModelAttribute CommunityListRequestDto dto) {
+        return ResponseEntity.ok().body(communityService.communityList(dto));
     }
 
-    @DeleteMapping("/v1/board/community/{id}")
-    public ResponseEntity<ResponseDto> communityDelete(@PathVariable Long id) throws Exception {
-        return ResponseEntity.ok().body(boardService.boardDelete(id));
-    }
+
 }

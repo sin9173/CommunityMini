@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Getter
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails { //계정 인증 정보
 
-    private AuthDto authDto;
+    private AuthDto authDto; //계정 DTO
 
     public PrincipalDetails(Account account) {
         this.authDto = new AuthDto(account);

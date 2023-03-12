@@ -19,6 +19,8 @@ public class AuthFilter extends GenericFilterBean {
 
     public static final String AUTHORIZATION_HEADER = "Authentication";
 
+    
+    //인증이 필요한 접근시 헤더 검증
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         PrincipalDetails principal = resolveInfo(request);
@@ -29,6 +31,7 @@ public class AuthFilter extends GenericFilterBean {
         chain.doFilter(request, response);
     }
 
+    //헤더에서 정보가져오기
     private PrincipalDetails resolveInfo(ServletRequest request) {
         String header = ((HttpServletRequest)request).getHeader(AUTHORIZATION_HEADER);
         if(!StringUtils.hasText(header)) return null;

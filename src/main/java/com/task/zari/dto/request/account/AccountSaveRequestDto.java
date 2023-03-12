@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @ToString
-public class AccountSaveRequestDto {
+public class AccountSaveRequestDto { //계정등록 요청데이터
 
     @NotBlank
     private String account_id; //계정 ID

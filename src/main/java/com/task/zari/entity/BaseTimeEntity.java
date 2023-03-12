@@ -20,7 +20,7 @@ public abstract class BaseTimeEntity {
     private Quit quit; //삭제여부
 
     @PrePersist
-    protected void create() {
+    private void create() {
         LocalDateTime now = LocalDateTime.now();
         regDate = now;
         updateDate = now;
@@ -28,7 +28,7 @@ public abstract class BaseTimeEntity {
     }
 
     @PreUpdate
-    protected void update() {
+    private void update() {
         if(quit==Quit.ACTIVE) updateDate = LocalDateTime.now();
     }
 

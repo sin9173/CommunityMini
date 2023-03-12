@@ -15,27 +15,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-class BoardRepositoryTest {
+class CommunityRepositoryTest {
 
     @Autowired
     private AccountRepository accountRepository;
 
     @Autowired
-    private BoardRepository boardRepository;
+    private CommunityRepository communityRepository;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Test
     @Transactional
-    public void boardSaveTest() {
+    public void boardSaveTest() { //게시글, 좋아요 등록 테스트
         Account account = new Account("aaa123", passwordEncoder.encode("password"),
                 "nickname", AccountType.Lessee);
 
         accountRepository.save(account);
 
-        Board board = new BoardCommunity("제목1", "내용1", account);
+        BoardCommunity board = new BoardCommunity("제목1", "내용1", account);
 
-        boardRepository.save(board);
+        communityRepository.save(board);
 
         Heart heart1 = new Heart(account, board);
         Heart heart2 = new Heart(account, board);

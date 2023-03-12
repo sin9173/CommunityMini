@@ -9,11 +9,11 @@ import lombok.ToString;
 @ToString
 public class ResponseDto { //응답
 
-    private boolean success;
+    private boolean success; //성공 여부
 
-    private int code;
+    private int code; //응답 코드
 
-    private String message;
+    private String message; //응답 메세지
 
     public ResponseDto(ResponseResult result) {
         this.code = result.getCode();

@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class LoginResponseDto {
+public class LoginResponseDto { //로그인 응답 데이터
 
     private String account_id; //계정 아이디
 

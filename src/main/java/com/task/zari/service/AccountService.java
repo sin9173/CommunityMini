@@ -22,8 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class AccountService {
@@ -45,7 +43,9 @@ public class AccountService {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(dto.getAccount_id(), dto.getPassword());
 
+        //loadUserByUsername 이 실행
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
+        //SecurityContext 에 Authentication 객체를 넣어 인증
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         LoginResponseDto response =

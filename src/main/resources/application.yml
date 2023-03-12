@@ -6,12 +6,13 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         show_sql: true
         format_sql: true
         default_batch_fetch_size: 100
+    #Transaction 종료 후 커넥션을 유지할지의 여부 (운영시에 되도록 False로 설정)
     open-in-view: false
 
   data:

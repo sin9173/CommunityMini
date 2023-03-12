@@ -2,7 +2,6 @@ package com.task.zari.config;
 
 import com.task.zari.advice.filter.AuthAccessDeniedHandler;
 import com.task.zari.advice.filter.AuthEntryPoint;
-import com.task.zari.advice.filter.AuthExceptionHandler;
 import com.task.zari.auth.AuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +32,6 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .addFilterBefore(new AuthExceptionHandler(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new AuthFilter(), UsernamePasswordAuthenticationFilter.class)
 
                 .exceptionHandling()

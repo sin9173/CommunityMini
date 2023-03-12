@@ -20,9 +20,9 @@ class AccountRepositoryTest {
 
     @Test
     @Transactional
-    public void accountSaveTest() {
+    public void accountSaveTest() { //계정 생성, 삭제 테스트
         Account account = new Account("aaa123", passwordEncoder.encode("password"),
-                "nickname", AccountType.LESSEE);
+                "nickname", AccountType.Lessee);
 
         accountRepository.save(account);
 

@@ -20,11 +20,11 @@ public class AuthEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         Class eClass = authException.getClass();
         if (eClass.equals(BadCredentialsException.class)) {
-            HttpUtils.jsonErrorResponse(HttpServletResponse.SC_UNAUTHORIZED, ResponseResult.BAD_CREDENTIAL, response);
+            HttpUtils.jsonErrorResponse(HttpServletResponse.SC_UNAUTHORIZED, ResponseResult.BAD_CREDENTIAL, response, authException);
         } else if(eClass.equals(InsufficientAuthenticationException.class)) {
-            HttpUtils.jsonErrorResponse(HttpServletResponse.SC_FORBIDDEN, ResponseResult.FORBIDDEN, response);
+            HttpUtils.jsonErrorResponse(HttpServletResponse.SC_FORBIDDEN, ResponseResult.FORBIDDEN, response, authException);
         } else {
-            HttpUtils.jsonErrorResponse(HttpServletResponse.SC_UNAUTHORIZED, ResponseResult.NOT_AUTHENTICATION, response);
+            HttpUtils.jsonErrorResponse(HttpServletResponse.SC_UNAUTHORIZED, ResponseResult.NOT_AUTHENTICATION, response, authException);
         }
     }
 }
