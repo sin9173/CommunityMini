@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/zari
-    username: root
-    password: dudwhg1!@
+    url: jdbc:mysql://zari.nyangko.com:3306/zari
+    username: zari
+    password: zari5876
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
